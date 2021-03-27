@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class AdminUserService(val adminUserRepository: AdminRepository, val passwordEncoder: PasswordEncoder): UserDetailsService {
+class SampleAdminUserService(val adminUserRepository: AdminRepository, val passwordEncoder: PasswordEncoder): UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails {
         val userFound = adminUserRepository.findAdminByUsername(username)

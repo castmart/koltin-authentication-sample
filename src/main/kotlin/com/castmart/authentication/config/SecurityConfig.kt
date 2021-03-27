@@ -1,6 +1,6 @@
 package com.castmart.authentication.config
 
-import com.castmart.authentication.config.security.AdminUserService
+import com.castmart.authentication.config.security.SampleAdminUserService
 import com.castmart.authentication.config.security.JwtFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,10 +16,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig(val userService: AdminUserService, val tokenFilter: JwtFilter): WebSecurityConfigurerAdapter() {
+class SecurityConfig(val userServiceSample: SampleAdminUserService, val tokenFilter: JwtFilter): WebSecurityConfigurerAdapter() {
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
-        auth?.userDetailsService(userService)
+        auth?.userDetailsService(userServiceSample)
     }
 
     override fun configure(http: HttpSecurity?) {

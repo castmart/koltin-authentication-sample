@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api")
 class AuthenticationController(
-    val authenticationManager: AuthenticationManager, val userDetailsService: com.castmart.authentication.config.security.AdminUserService,
+    val authenticationManager: AuthenticationManager, val userDetailsServiceSample: com.castmart.authentication.config.security.SampleAdminUserService,
     val jwtUtil: JWTUtil, val adminUserService: AdminUserService
     ) {
 
@@ -24,7 +24,7 @@ class AuthenticationController(
         authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password)
         )
-        val userDetails = this.userDetailsService.loadUserByUsername(loginRequest.username)
+        val userDetails = this.userDetailsServiceSample.loadUserByUsername(loginRequest.username)
         val jwt = this.jwtUtil.generateToken(userDetails)
         return ResponseEntity.ok(LoginResponse(jwt))
     }

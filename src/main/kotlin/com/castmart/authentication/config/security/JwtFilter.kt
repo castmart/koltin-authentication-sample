@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class JwtFilter(val userDetailService: AdminUserService, val jwtUtil: JWTUtil) : OncePerRequestFilter() {
+class JwtFilter(val userDetailServiceSample: SampleAdminUserService, val jwtUtil: JWTUtil) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -24,7 +24,7 @@ class JwtFilter(val userDetailService: AdminUserService, val jwtUtil: JWTUtil) :
             val username = jwtUtil.extractUsername(jwt)
 
             if(username != null && SecurityContextHolder.getContext().authentication == null) {
-                val userDetails = userDetailService.loadUserByUsername(username)
+                val userDetails = userDetailServiceSample.loadUserByUsername(username)
                 if (jwtUtil.validateToken(jwt, userDetails)) {
                     val usernameAndPasswordAuthentictionToken = UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.authorities
