@@ -1,6 +1,6 @@
 package com.castmart.authentication.config.security
 
-import com.castmart.authentication.domain.EtktAdminRepository
+import com.castmart.authentication.domain.AdminRepository
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
@@ -10,20 +10,21 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class EtktAdminUserService(val adminUserRepository: EtktAdminRepository, val passwordEncoder: PasswordEncoder): UserDetailsService {
+class AdminUserService(val adminUserRepository: AdminRepository, val passwordEncoder: PasswordEncoder): UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails {
-        val userFound = adminUserRepository.findEtktAdminByUsername(username)
+        val userFound = adminUserRepository.findAdminByUsername(username)
         if (userFound != null) {
             val roles = ArrayList<GrantedAuthority>()
             roles.add(SimpleGrantedAuthority(userFound.role!!))
             return User(userFound.username, userFound.password, roles)
-        } else {
-            return User(
-                "admin",
-                passwordEncoder.encode("pass"),
-                ArrayList()
-            )
         }
+
+        return User(
+            "admin",
+            passwordEncoder.encode("pass"),
+            ArrayList()
+        )
+
     }
 }

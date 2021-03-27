@@ -13,7 +13,7 @@ enum class ROLES {
 }
 
 @Entity
-data class EtktAdmin (
+data class Admin (
         @Id @Column(name="id", length=16, unique=true, nullable=false)
         var id: UUID? = UUID.randomUUID(),
         @Version
@@ -24,6 +24,6 @@ data class EtktAdmin (
 )
 
 @Repository
-interface EtktAdminRepository:JpaRepository<EtktAdmin, UUID> {
-        fun findEtktAdminByUsername(username: String?): EtktAdmin?
+interface AdminRepository:JpaRepository<Admin, UUID> {
+        fun findAdminByUsername(username: String?): Admin?
 }

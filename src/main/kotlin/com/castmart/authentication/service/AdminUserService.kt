@@ -1,16 +1,16 @@
 package com.castmart.authentication.service
 
-import com.castmart.authentication.domain.EtktAdmin
-import com.castmart.authentication.domain.EtktAdminRepository
+import com.castmart.authentication.domain.Admin
+import com.castmart.authentication.domain.AdminRepository
 import com.castmart.authentication.domain.ROLES
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class AdminUserService (private val passwordEncoder: PasswordEncoder, private val adminRepository: EtktAdminRepository){
+class AdminUserService (private val passwordEncoder: PasswordEncoder, private val adminRepository: AdminRepository){
 
-    fun createAdminUser(username: String, password: String): EtktAdmin {
-        val newUser = EtktAdmin(
+    fun createAdminUser(username: String, password: String): Admin {
+        val newUser = Admin(
             username=username,
             password=this.passwordEncoder.encode(password),
             role= ROLES.ADMIN.name
@@ -19,7 +19,7 @@ class AdminUserService (private val passwordEncoder: PasswordEncoder, private va
         return newUser
     }
 
-    fun getAllAdmins(): List<EtktAdmin> {
+    fun getAllAdmins(): List<Admin> {
         return adminRepository.findAll()
     }
 }

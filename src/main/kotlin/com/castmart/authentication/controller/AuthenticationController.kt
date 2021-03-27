@@ -2,9 +2,8 @@ package com.castmart.authentication.controller
 
 import com.castmart.authentication.dto.LoginRequest
 import com.castmart.authentication.dto.LoginResponse
-import com.castmart.authentication.config.security.EtktAdminUserService
 import com.castmart.authentication.config.security.JWTUtil
-import com.castmart.authentication.domain.EtktAdmin
+import com.castmart.authentication.domain.Admin
 import com.castmart.authentication.service.AdminUserService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api")
 class AuthenticationController(
-    val authenticationManager: AuthenticationManager, val userDetailsService: EtktAdminUserService,
+    val authenticationManager: AuthenticationManager, val userDetailsService: com.castmart.authentication.config.security.AdminUserService,
     val jwtUtil: JWTUtil, val adminUserService: AdminUserService
     ) {
 
@@ -38,7 +37,7 @@ class AuthenticationController(
 
     @PostMapping("/create")
     fun execute(@RequestBody userData: LoginRequest): ResponseEntity<Any> {
-        val adminUser = this.adminUserService.createAdminUser(userData?.username, userData?.password)
+        val adminUser = this.adminUserService.createAdminUser(userData.username, userData.password)
         adminUser.password = "********"
         return ResponseEntity.ok(adminUser)
     }
@@ -55,7 +54,7 @@ class AuthenticationController(
         return ResponseEntity.badRequest().build()
     }
 
-    private fun hidePassword(users: List<EtktAdmin>) {
+    private fun hidePassword(users: List<Admin>) {
         users.forEach { user -> user.password = "********"}
     }
 }

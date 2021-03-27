@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class JwtFilter(val userDetailService: EtktAdminUserService, val jwtUtil: JWTUtil) : OncePerRequestFilter() {
+class JwtFilter(val userDetailService: AdminUserService, val jwtUtil: JWTUtil) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
